@@ -1,0 +1,19 @@
+version: v1
+name: example
+opts:
+  - --go_out=./tmp/pb
+  - --go_grpc_out=./tmp/pb
+src:
+  local: 
+    - ./_pb/admin
+  remote: 
+    - repo: git@gitlab.apmsupplychain.com:tongtian/protobuf.git
+      refs: user-v1.0.0
+      path:
+        - user
+deps:
+  local:
+    - ./_pb
+  # remote:
+  #   - repo: git@gitlab.apmsupplychain.com:tongtian/protobuf.git
+  #     refs: user-v1.0.0
