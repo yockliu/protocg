@@ -12,7 +12,7 @@ var WORK_CACHE_PATH string
 
 func init() {
 	WORK_CACHE_PATH = cachePathOfWork()
-	if err := os.MkdirAll(WORK_CACHE_PATH, os.ModePerm); err != nil {
+	if err := os.MkdirAll(BASE_PATH, os.ModePerm); err != nil {
 		panic(err)
 	}
 }
@@ -27,7 +27,7 @@ func workSig() string {
 }
 
 func cachePathOfWork() string {
-	return fmt.Sprintf("%s-%s", BASE_PATH, workSig())
+	return fmt.Sprintf("%s/work-%s", BASE_PATH, workSig())
 }
 
 func cachePathOfGit(subpath string) string {
