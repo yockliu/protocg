@@ -30,6 +30,6 @@ func cachePathOfWork() string {
 	return fmt.Sprintf("%s-%s", BASE_PATH, workSig())
 }
 
-func cachePathOf(subpath string) string {
-	return fmt.Sprintf("%s/%s", WORK_CACHE_PATH, subpath)
+func cachePathOfGit(subpath string) string {
+	return fmt.Sprintf("%s/remote-%s", BASE_PATH, subpath)
 }

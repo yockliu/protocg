@@ -34,7 +34,7 @@ func (r *Remote) clone() error {
 		return nil
 	}
 
-	path := cachePathOf(sig)
+	path := cachePathOfGit(sig)
 
 	if err := os.RemoveAll(path); err != nil {
 		return err
