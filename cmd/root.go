@@ -31,7 +31,7 @@ var rootCmd = &cobra.Command{
 	Use:     "protocg",
 	Short:   "",
 	Long:    ``,
-	Version: "0.0.1",
+	Version: "0.0.2",
 	CompletionOptions: cobra.CompletionOptions{
 		DisableDefaultCmd: true,
 	},
