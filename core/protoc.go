@@ -20,7 +20,11 @@ func execProtoc(deps []string, opts []string, src []string) {
 	}
 
 	for _, src := range src {
-		cmdOpts = append(cmdOpts, src+"/*.proto")
+		if strings.HasSuffix(src, ".proto") {
+			cmdOpts = append(cmdOpts, src)
+		} else {
+			cmdOpts = append(cmdOpts, src+"/*.proto")
+		}
 	}
 
 	cmd := exec.Command("sh", "-c", strings.Join(cmdOpts, " "))

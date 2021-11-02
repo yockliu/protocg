@@ -10,17 +10,36 @@ type Generator struct {
 		Local  []string
 		Remote []Remote
 	}
-	Deps struct {
+	ProtoPath struct {
 		Local  []string
 		Remote []Remote
-	}
+	} `mapstructure:"proto_path"`
 }
 
 func GenV1() {
 	generator := parseConfig()
-	depsPaths := []string{}
+	protoPaths := []string{}
 	srcPaths := []string{}
 	fmt.Println(generator)
+
+	for _, local := range generator.ProtoPath.Local {
+		protoPaths = append(protoPaths, local)
+	}
+
+	for _, remote := range generator.ProtoPath.Remote {
+		if err := remote.clone(); err != nil {
+			panic(err)
+		}
+		subPaths := remote.getSubPaths()
+
+		for _, subPath := range subPaths {
+			protoPaths = append(protoPaths, subPath)
+		}
+	}
+
+	for _, local := range generator.Src.Local {
+		srcPaths = append(srcPaths, local)
+	}
 
 	for _, remote := range generator.Src.Remote {
 		if err := remote.clone(); err != nil {
@@ -30,35 +49,14 @@ func GenV1() {
 		subPaths := remote.getSubPaths()
 
 		for _, subPath := range subPaths {
-			depsPaths = append(depsPaths, subPath)
 			srcPaths = append(srcPaths, subPath)
 		}
 	}
 
-	for _, local := range generator.Src.Local {
-		depsPaths = append(depsPaths, local)
-		srcPaths = append(srcPaths, local)
-	}
-
-	for _, remote := range generator.Deps.Remote {
-		if err := remote.clone(); err != nil {
-			panic(err)
-		}
-		subPaths := remote.getSubPaths()
-
-		for _, subPath := range subPaths {
-			depsPaths = append(depsPaths, subPath)
-		}
-	}
-
-	for _, local := range generator.Deps.Local {
-		depsPaths = append(depsPaths, local)
-	}
-
-	fmt.Println("deps path = ", depsPaths)
+	fmt.Println("deps path = ", protoPaths)
 	fmt.Println("src path = ", srcPaths)
 
-	execProtoc(depsPaths, generator.Opts, srcPaths)
+	execProtoc(protoPaths, generator.Opts, srcPaths)
 }
 
 func (r *Remote) getSubPaths() []string {
