@@ -12,6 +12,7 @@ src:
     - repo: git@gitlab.apmsupplychain.com:tongtian/protobuf.git
       refs: v1.0.0
       path:
+        - common/predefine.proto
         - admin
         - user
         - content
