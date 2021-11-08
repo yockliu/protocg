@@ -6,14 +6,18 @@ opts:
 src:
   local: 
     - ./_pb/admin
+    - ./_pb/user
+    - ./_pb/content
   remote: 
     - repo: git@gitlab.apmsupplychain.com:tongtian/protobuf.git
-      refs: user-v1.0.0
+      refs: v1.0.0
       path:
+        - admin
         - user
-deps:
+        - content
+proto_path:
   local:
     - ./_pb
-  # remote:
-  #   - repo: git@gitlab.apmsupplychain.com:tongtian/protobuf.git
-  #     refs: user-v1.0.0
+  remote:
+    - repo: git@gitlab.apmsupplychain.com:tongtian/protobuf.git
+      refs: v1.0.0
